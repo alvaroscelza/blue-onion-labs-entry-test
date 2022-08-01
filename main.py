@@ -47,14 +47,24 @@ def get_satellite_last_known_position(satellite_id, time):
 
 def main():
     """
-    - Run `python main.py` to run the code.
-    - Pass the satellite id and a time T as parameters: `python main.py 5eed7714096e59000698563c 2020-08-29T04:46:09`. Be
-    mindful: I didn't program any checks on these parameters, if you miss one, both or change their order the program will
-    crash.
-    - Use the argument '--populate-data' to fetch data from your json file and insert it into the database, this is required
-    the first time you run the app or your database will be empty (without data or tables), and the program will crash.
-    This parameter must always be at the end of the command, or the program will crash:
-    `python main.py 5eed7714096e59000698563c 2020-08-29T04:46:09 --populate-data`
+    Allows to populate the database with data from
+    https://raw.githubusercontent.com/BlueOnionLabs/api-spacex-backend/master/starlink_historical_data.json.
+    Allows to print a satellite position given its id and a specific time. If no position is found for that satellite at
+    that time, then 'None' is printed.
+    Command to run: `python main.py <satellite_id> <datetime> [--populate-data]`
+    Example populating data: `python main.py 5eed7714096e59000698563c 2020-08-29T04:46:09 --populate-data`
+    Example without populating data: `python main.py 5eed7714096e59000698563c 2020-08-29T04:46:09`
+
+    :param satellite_id: the id of the wanted satellite.
+    :param datetime: the specific datetime at which we want the satellite position.
+    :param --populate-data: (optional) this enables data population of the database. It is necessary to have a working
+    internet connection for this. Data is fetched from the data url, processed (only certain parameters are used) and
+    stored in database. this is required the first time you run the app or your database will be empty (without data
+    or tables), and the program will crash.
+
+    :return: void.
+
+    No parameters checks were programmed, if one or both of the required params is missing, the program will crash.
     """
     arguments = sys.argv
     if '--populate-data' in arguments:
