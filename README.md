@@ -16,7 +16,7 @@ to the internet. I use requests package for this.
 result for those.
 
 ## Assumptions
-- Handling all that data in memory is not an issue, nor is performance.
+- Handling all that data in memory is not an issue, otherwise we would have to explore how to download it by chunks.
 - Data is always correctly formatted, no correctness checks are made.
 - Task 3 is confusing: not sure if you want to have the last know position of a satellite, or that satellite position 
 given a time T (and returning None in case we don't have a position for that satellite at that time T). I'm assuming 
@@ -39,5 +39,8 @@ The entire project took an hour and a half to be completed.
 - Run `docker-compose up` to start database.
 
 ## Usage
-- Quick Start Example: `python main.py 5eed770f096e59000698560d 2020-10-13T04:16:08 --populate-data`
+- Get satellite position at time Example: `python main.py 5eed770f096e59000698560d 2020-10-13T04:16:08 --populate-data`
 - Refer to the main function in [main.py](main.py) file for deeper documentation.
+- Get the closest satellite at given time-position: `python closest_satellite.py 2021-01-26T14:26:10 25 20` (answer
+should be the satellite with id `5eed7714096e5900069856a0`).
+- Refer to the main function in [closest_satellite.py](closest_satellite.py) file for deeper documentation.
