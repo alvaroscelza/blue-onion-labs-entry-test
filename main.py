@@ -5,7 +5,7 @@ import requests as requests
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 
-from launch import Launch
+from satellite_position import SatellitePosition
 
 
 def get_relevant_data(launches):
@@ -21,16 +21,16 @@ def get_relevant_data(launches):
     return relevant_data
 
 
-def insert_launches_into_database(launches_relevant_data):
+def insert_positions_into_database(positions_relevant_data):
     engine = create_engine("postgresql+psycopg2://docker:docker@localhost:5432/docker")
-    Launch.metadata.create_all(engine)
+    SatellitePosition.metadata.create_all(engine)
     with Session(engine) as session:
-        for launch_data in launches_relevant_data:
-            launch = Launch(
-                satellite_id=launch_data['id'],
-                creation_date=launch_data['creation_date'],
-                longitude=launch_data['longitude'],
-                latitude=launch_data['latitude']
+        for position_data in positions_relevant_data:
+            launch = SatellitePosition(
+                satellite_id=position_data['id'],
+                creation_date=position_data['creation_date'],
+                longitude=position_data['longitude'],
+                latitude=position_data['latitude']
             )
             session.add_all([launch])
             session.commit()
@@ -39,10 +39,9 @@ def insert_launches_into_database(launches_relevant_data):
 def get_satellite_last_known_position(satellite_id, time):
     engine = create_engine("postgresql+psycopg2://docker:docker@localhost:5432/docker")
     with Session(engine) as session:
-        satellite_positions = session.execute(select(Launch)
-                                              .where(Launch.satellite_id == satellite_id)
-                                              .where(Launch.creation_date == time)).first()
-        return satellite_positions
+        return session.execute(select(SatellitePosition)
+                               .where(SatellitePosition.satellite_id == satellite_id)
+                               .where(SatellitePosition.creation_date == time)).first()
 
 
 def main():
@@ -70,9 +69,9 @@ def main():
     if '--populate-data' in arguments:
         url = 'https://raw.githubusercontent.com/BlueOnionLabs/api-spacex-backend/master/starlink_historical_data.json'
         response = requests.get(url)
-        launches = json.loads(response.text)
-        launches_relevant_data = get_relevant_data(launches)
-        insert_launches_into_database(launches_relevant_data)
+        positions = json.loads(response.text)
+        positions_relevant_data = get_relevant_data(positions)
+        insert_positions_into_database(positions_relevant_data)
     satellite_id = arguments[1]
     time = arguments[2]
     last_known_position = get_satellite_last_known_position(satellite_id, time)
