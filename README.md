@@ -24,7 +24,7 @@ you wanted the last case.
 
 ## Effort Registry
 
-The entire project took an hour and a half to be completed.
+The entire project took 3 hours to be completed.
 
 ## Technology Stack
 
@@ -42,5 +42,5 @@ The entire project took an hour and a half to be completed.
 - Get satellite position at time Example: `python main.py 5eed770f096e59000698560d 2020-10-13T04:16:08 --populate-data`
 - Refer to the main function in [main.py](main.py) file for deeper documentation.
 - Get the closest satellite at given time-position: `python closest_satellite.py 2021-01-26T14:26:10 25 20` (answer
-should be the satellite with id `5eed7714096e5900069856a0`).
+for this case (63 positions with that time), should be the satellite with id `5eed7714096e5900069856a0`).
 - Refer to the main function in [closest_satellite.py](closest_satellite.py) file for deeper documentation.
