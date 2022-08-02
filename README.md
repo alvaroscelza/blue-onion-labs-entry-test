@@ -12,6 +12,8 @@ For this case though, the branch 'master' was enough.
 launch_id which is not unique.
 - The data is gathered from your repository json using internet. So, in order for this to work, you need to be connected
 to the internet. I use requests package for this.
+- Some provided data don't have latitude (it's null), so you will see 'None' in the latitude of the printed
+result for those.
 
 ## Assumptions
 - Handling all that data in memory is not an issue, nor is performance.
