@@ -4,14 +4,14 @@ from sqlalchemy.orm import declarative_base
 Base = declarative_base()
 
 
-class Launch(Base):
+class SatellitePosition(Base):
     __tablename__ = 'launch'
 
     id = Column(Integer, primary_key=True)
     satellite_id = Column(String)
     creation_date = Column(DateTime())
-    longitude = Column(Integer)
-    latitude = Column(Integer)
+    longitude = Column(float)
+    latitude = Column(float)
 
     def __repr__(self):
         return 'Satellite id: {}, Datetime: {}, Longitude: {}, Latitude: {}'\
