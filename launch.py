@@ -8,7 +8,11 @@ class Launch(Base):
     __tablename__ = 'launch'
 
     id = Column(Integer, primary_key=True)
-    launch_id = Column(String)
+    satellite_id = Column(String)
     creation_date = Column(DateTime())
     longitude = Column(Integer)
     latitude = Column(Integer)
+
+    def __repr__(self):
+        return 'Satellite id: {}, Datetime: {}, Longitude: {}, Latitude: {}'\
+            .format(self.satellite_id, self.creation_date, self.longitude, self.latitude)

@@ -27,7 +27,7 @@ def insert_launches_into_database(launches_relevant_data):
     with Session(engine) as session:
         for launch_data in launches_relevant_data:
             launch = Launch(
-                launch_id=launch_data['id'],
+                satellite_id=launch_data['id'],
                 creation_date=launch_data['creation_date'],
                 longitude=launch_data['longitude'],
                 latitude=launch_data['latitude']
@@ -40,7 +40,7 @@ def get_satellite_last_known_position(satellite_id, time):
     engine = create_engine("postgresql+psycopg2://docker:docker@localhost:5432/docker")
     with Session(engine) as session:
         satellite_positions = session.execute(select(Launch)
-                                              .where(Launch.launch_id == satellite_id)
+                                              .where(Launch.satellite_id == satellite_id)
                                               .where(Launch.creation_date == time)).first()
         return satellite_positions
 
@@ -52,8 +52,8 @@ def main():
     Allows to print a satellite position given its id and a specific time. If no position is found for that satellite at
     that time, then 'None' is printed.
     Command to run: `python main.py <satellite_id> <datetime> [--populate-data]`
-    Example populating data: `python main.py 5eed7714096e59000698563c 2020-08-29T04:46:09 --populate-data`
-    Example without populating data: `python main.py 5eed7714096e59000698563c 2020-08-29T04:46:09`
+    Example populating data: `python main.py 5eed770f096e59000698560d 2020-10-13T04:16:08 --populate-data`
+    Example without populating data: `python main.py 5eed770f096e59000698560d 2020-10-13T04:16:08`
 
     :param satellite_id: the id of the wanted satellite.
     :param datetime: the specific datetime at which we want the satellite position.

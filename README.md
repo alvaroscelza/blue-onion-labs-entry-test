@@ -37,5 +37,5 @@ The entire project took an hour and a half to be completed.
 - Run `docker-compose up` to start database.
 
 ## Usage
-- Example: `python main.py 5eed7714096e59000698563c 2020-08-29T04:46:09 --populate-data`
-- Refer to the main.py script code for deeper documentation.
+- Quick Start Example: `python main.py 5eed770f096e59000698560d 2020-10-13T04:16:08 --populate-data`
+- Refer to the main function in [main.py](main.py) file for deeper documentation.
